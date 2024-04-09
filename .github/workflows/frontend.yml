@@ -1,0 +1,30 @@
+name: Frontend checks
+on: [pull_request]
+
+jobs:
+  frontend-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          architecture: "x64"
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Initialize project
+        run: |
+          pnpm i --frozen-lockfile
+      - name: Run formatter
+        run: pnpm check-format
+      - name: Run linter
+        run: pnpm lint
+      - name: Run type checks
+        run: pnpm typecheck
+      - name: Run unit tests
+        run: pnpm test:unit
