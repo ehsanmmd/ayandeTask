@@ -1,18 +1,34 @@
 import { memo } from "react";
-import styled from "styled-components";
-import GlobalStyles from "./globalStyles";
+import { ConfigProvider } from "antd";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import AppLayout from "./pages/AppLayout";
 
-const Title = styled.h1`
-  color: #666;
-`;
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [],
+  },
+]);
 
 function App() {
   return (
-    <>
-      <GlobalStyles />
-      <Title>Welcome</Title>
-      <p>Use this as a starting point to develop your own application :-)</p>
-    </>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#155EEF",
+          colorBgLayout: "#ffffff",
+        },
+        components: {
+          Layout: {
+            siderBg: "#ffffff",
+            headerBg: "#ffffff",
+          },
+        },
+      }}
+    >
+      <RouterProvider router={router} />
+    </ConfigProvider>
   );
 }
 
