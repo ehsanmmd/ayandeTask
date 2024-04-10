@@ -25,8 +25,9 @@ import {
   Users,
 } from "../../components/appIcons";
 import LiveDateTime from "./LiveDateTime";
+import { Outlet, useNavigate } from "react-router-dom";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Sider } = Layout;
 
 const LogoContainer = styled.div`
   display: flex;
@@ -48,7 +49,7 @@ const siderMenu: MenuProps["items"] = [
     key: "treasury",
     icon: <Treasury />,
     label: "خزانه داری",
-    children: [{ key: "bankAccount", label: "تعریف حساب بانکی" }],
+    children: [{ key: "newBankAccount", label: "تعریف حساب بانکی" }],
   },
   { key: "accounting", icon: <Accounting />, label: "حسابداری" },
   { key: "settings", icon: <Settings />, label: "تنظیمات" },
@@ -68,6 +69,12 @@ const yearMenuProps = {
 };
 
 export default function AppLayout(): ReactElement {
+  const navigate = useNavigate();
+  const sideMenuHandler: MenuProps["onSelect"] = info => {
+    if (info.key === "newBankAccount") {
+      navigate("accounts");
+    }
+  };
   return (
     <Layout>
       <Layout>
@@ -89,17 +96,18 @@ export default function AppLayout(): ReactElement {
             <LiveDateTime />
           </div>
         </Header>
-        <div dir="rtl">
-          <Breadcrumb css="margin: 16px 8px;" separator=">">
-            <Breadcrumb.Item>
-              <Dashboard />
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>خزانه داری</Breadcrumb.Item>
-            <Breadcrumb.Item>تعریف حساب بانکی</Breadcrumb.Item>
-          </Breadcrumb>
+        <div css="padding: 16px 24px;">
+          <div dir="rtl" css="margin-bottom: 16px;">
+            <Breadcrumb separator=">">
+              <Breadcrumb.Item>
+                <Dashboard />
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>خزانه داری</Breadcrumb.Item>
+              <Breadcrumb.Item>تعریف حساب بانکی</Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+          <Outlet />
         </div>
-
-        <Content css="padding: 33px">Content</Content>
       </Layout>
       <Sider width={279} dir="rtl">
         <LogoContainer css="margin: 32px">
@@ -112,6 +120,7 @@ export default function AppLayout(): ReactElement {
           defaultOpenKeys={["sub1"]}
           css="height: 100%; borderRight: 0; font-size: 16px; font-weight: 600;"
           items={siderMenu}
+          onSelect={sideMenuHandler}
         />
       </Sider>
     </Layout>

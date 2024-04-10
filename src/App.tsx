@@ -2,12 +2,18 @@ import { memo } from "react";
 import { ConfigProvider } from "antd";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AppLayout from "./pages/AppLayout";
+import Accounts from "./pages/Accounts";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    children: [],
+    children: [
+      {
+        path: "accounts",
+        element: <Accounts />,
+      },
+    ],
   },
 ]);
 
