@@ -85,8 +85,9 @@ export const generateAccounts = (): Account[] => {
 export const filteredAccounts = (
   filters: Filters,
   searchPhrase: string,
-): Account[] => {
-  return generateAccounts().filter(account => {
+  maxRows: number,
+): { accounts: Account[]; remaining: number } => {
+  const entries = generateAccounts().filter(account => {
     if (
       (filters.portFilter !== "همه" &&
         account.bankPortStatus !== filters.portFilter) ||
@@ -103,6 +104,10 @@ export const filteredAccounts = (
       return strValue.includes(searchPhrase);
     });
   });
+  return {
+    accounts: entries.slice(0, maxRows),
+    remaining: entries.length - maxRows,
+  };
 };
 
 export const deleteAccounts = (keysToDelete: string[]): void => {

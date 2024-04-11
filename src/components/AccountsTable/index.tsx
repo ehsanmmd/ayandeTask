@@ -1,12 +1,11 @@
-import { Table, type TableColumnsType } from "antd";
-import type { ReactElement } from "react";
+import { Button, Table, type TableColumnsType } from "antd";
+import { useEffect, useState, type ReactElement } from "react";
 import { type Account, filteredAccounts } from "../../pages/Accounts/mock";
 import type { Filters } from "../../pages/Accounts/FilterModal";
 
 const columns: TableColumnsType<Account> = [
   {
     title: "عنوان حساب",
-    // width: 70,
     dataIndex: "accountTitle",
     key: "accountTitle",
     fixed: "left",
@@ -19,7 +18,6 @@ const columns: TableColumnsType<Account> = [
     width: 100,
     dataIndex: "accountCode",
     key: "accountCode",
-    // fixed: "right",
   },
   {
     title: "شماره حساب",
@@ -43,19 +41,16 @@ const columns: TableColumnsType<Account> = [
     title: "وضعیت درگاه بانک",
     dataIndex: "bankPortStatus",
     key: "bankPortStatus",
-    // width: 50,
   },
   {
     title: "وضعیت کارتخوان",
     dataIndex: "posStatus",
     key: "posStatus",
-    // width: 50,
   },
   {
     title: "",
     dataIndex: "",
     key: "5",
-    // width: 50,
   },
 ];
 
@@ -70,19 +65,46 @@ export default function AccountsTable({
   filters,
   searchPhrase,
 }: Props): ReactElement {
+  const [maxRows, setMaxRows] = useState(10);
+  const [remaining, setRemaining] = useState<number | undefined>(undefined);
+  const [accounts, setAccounts] = useState<Account[]>([]);
+
+  useEffect(() => {
+    const data = filteredAccounts(filters, searchPhrase, maxRows);
+    setAccounts(data.accounts);
+    setRemaining(data.remaining);
+  }, [maxRows, filters, searchPhrase]);
+
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[]) => {
       onSelectedChange(selectedRowKeys);
     },
   };
+
+  const loadMore = () => {
+    setMaxRows(prev => prev + prev);
+  };
+
   return (
     <div dir="rtl" css="margin: 24px 0;">
       <Table
         rowSelection={{ type: "checkbox", ...rowSelection }}
         columns={columns}
-        dataSource={filteredAccounts(filters, searchPhrase)}
+        dataSource={accounts}
         scroll={{ x: 1200, y: 600 }}
+        pagination={false}
       />
+      {remaining && remaining > 0 && (
+        <div css="display: flex">
+          <Button
+            type="link"
+            onClick={loadMore}
+            css="margin-top: 16px; margin: 16px auto"
+          >
+            مشاهده بیشتر
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
