@@ -82,21 +82,26 @@ export const generateAccounts = (): Account[] => {
   }
 };
 
-export const filteredAccounts = (filters: Filters): Account[] => {
+export const filteredAccounts = (
+  filters: Filters,
+  searchPhrase: string,
+): Account[] => {
   return generateAccounts().filter(account => {
     if (
-      filters.portFilter !== "همه" &&
-      account.bankPortStatus !== filters.portFilter
+      (filters.portFilter !== "همه" &&
+        account.bankPortStatus !== filters.portFilter) ||
+      (filters.posFilter !== "همه" && account.posStatus !== filters.posFilter)
     ) {
       return false;
     }
-    if (
-      filters.posFilter !== "همه" &&
-      account.posStatus !== filters.posFilter
-    ) {
-      return false;
+
+    if (searchPhrase === "") {
+      return true;
     }
-    return true;
+    return Object.values(account).some(value => {
+      const strValue = value.toString();
+      return strValue.includes(searchPhrase);
+    });
   });
 };
 

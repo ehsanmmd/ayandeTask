@@ -59,11 +59,13 @@ const columns: TableColumnsType<Account> = [
 interface Props {
   onSelectedChange: (keys: React.Key[]) => void;
   filters: Filters;
+  searchPhrase: string;
 }
 
 export default function AccountsTable({
   onSelectedChange,
   filters,
+  searchPhrase,
 }: Props): ReactElement {
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[]) => {
@@ -75,7 +77,7 @@ export default function AccountsTable({
       <Table
         rowSelection={{ type: "checkbox", ...rowSelection }}
         columns={columns}
-        dataSource={filteredAccounts(filters)}
+        dataSource={filteredAccounts(filters, searchPhrase)}
         scroll={{ x: 1600, y: 600 }}
       />
     </div>

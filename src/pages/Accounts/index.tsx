@@ -58,6 +58,7 @@ export default function Accounts(): ReactElement {
     portFilter: "همه",
     posFilter: "همه",
   });
+  const [searchPhrase, setSearchPhrase] = useState("");
 
   const deleteEntries = () => {
     deleteAccounts(selectedKeys as string[]);
@@ -108,15 +109,18 @@ export default function Accounts(): ReactElement {
                   okText="حذف کن"
                   cancelText="انصراف"
                 >
-                  <ActionButton disabled={selectedKeys.length === 0}>
+                  <ActionButton
+                    disabled={selectedKeys.length === 0}
+                    css="border-color: red"
+                  >
                     <Delete />
                   </ActionButton>
                 </Popconfirm>
               </div>
-              <ActionButton>
+              <ActionButton disabled>
                 <Excel />
               </ActionButton>
-              <ActionButton>
+              <ActionButton disabled>
                 <Printer />
               </ActionButton>
             </HeaderActions>
@@ -124,12 +128,21 @@ export default function Accounts(): ReactElement {
               <ActionButton onClick={() => setIsModalOpen(true)}>
                 <Filter />
               </ActionButton>
-              <Search dir="rtl" placeholder="جستجو" size="large" />
+              <Search
+                dir="rtl"
+                placeholder="جستجو"
+                size="large"
+                onChange={e => setSearchPhrase(e.target.value)}
+              />
             </HeaderActions>
           </LowerHeading>
         </TableHeading>
         <TableContainer>
-          <AccountsTable onSelectedChange={setSelectedKeys} filters={filters} />
+          <AccountsTable
+            onSelectedChange={setSelectedKeys}
+            filters={filters}
+            searchPhrase={searchPhrase}
+          />
         </TableContainer>
       </Container>
       <FilterModal
