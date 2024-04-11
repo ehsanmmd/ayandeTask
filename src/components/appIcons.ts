@@ -19,3 +19,5 @@ export { default as Printer } from "../assets/icons/svg/printer.svg";
 export { default as Filter } from "../assets/icons/svg/filter.svg";
 export { default as SearchIcon } from "../assets/icons/svg/search.svg";
 export { default as Plus } from "../assets/icons/svg/plus.svg";
+export { default as Resize } from "../assets/icons/svg/resize.svg";
+export { default as Edit } from "../assets/icons/svg/edit.svg";
