@@ -1,4 +1,4 @@
-import { Button, Input, Popconfirm } from "antd";
+import { Button, Input, Popconfirm, Tag } from "antd";
 import { useState, type ReactElement } from "react";
 import { styled } from "styled-components";
 import {
@@ -59,6 +59,7 @@ export default function Accounts(): ReactElement {
     posFilter: "همه",
   });
   const [searchPhrase, setSearchPhrase] = useState("");
+  const [numAccounts, setNumAccounts] = useState<number | undefined>(undefined);
 
   const deleteEntries = () => {
     deleteAccounts(selectedKeys as string[]);
@@ -74,6 +75,10 @@ export default function Accounts(): ReactElement {
     setIsModalOpen(false);
   };
 
+  const getNumAccounts = (qty: number) => {
+    setNumAccounts(qty);
+  };
+
   return (
     <>
       <Container>
@@ -84,7 +89,10 @@ export default function Accounts(): ReactElement {
               <Button icon={<Pdf />}></Button>
             </div>
             <div dir="rtl">
-              <Title>تعریف حساب بانکی</Title>
+              <div css="display: flex; gap: 16px; align-items: center;">
+                <Title>تعریف حساب بانکی</Title> <Tag> {numAccounts} حساب</Tag>
+              </div>
+
               <Description>
                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
                 استفاده از طراحان گرافیک است.
@@ -142,6 +150,7 @@ export default function Accounts(): ReactElement {
             onSelectedChange={setSelectedKeys}
             filters={filters}
             searchPhrase={searchPhrase}
+            reportNumAccounts={getNumAccounts}
           />
         </TableContainer>
       </Container>

@@ -56,6 +56,7 @@ const columns: TableColumnsType<Account> = [
 
 interface Props {
   onSelectedChange: (keys: React.Key[]) => void;
+  reportNumAccounts: (qty: number) => void;
   filters: Filters;
   searchPhrase: string;
 }
@@ -64,6 +65,7 @@ export default function AccountsTable({
   onSelectedChange,
   filters,
   searchPhrase,
+  reportNumAccounts,
 }: Props): ReactElement {
   const [maxRows, setMaxRows] = useState(10);
   const [remaining, setRemaining] = useState<number | undefined>(undefined);
@@ -73,7 +75,8 @@ export default function AccountsTable({
     const data = filteredAccounts(filters, searchPhrase, maxRows);
     setAccounts(data.accounts);
     setRemaining(data.remaining);
-  }, [maxRows, filters, searchPhrase]);
+    reportNumAccounts(data.remaining + maxRows);
+  }, [maxRows, filters, searchPhrase, reportNumAccounts]);
 
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[]) => {
