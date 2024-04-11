@@ -21,3 +21,4 @@ export { default as SearchIcon } from "../assets/icons/svg/search.svg";
 export { default as Plus } from "../assets/icons/svg/plus.svg";
 export { default as Resize } from "../assets/icons/svg/resize.svg";
 export { default as Edit } from "../assets/icons/svg/edit.svg";
+export { default as Swap } from "../assets/icons/svg/swap.svg";

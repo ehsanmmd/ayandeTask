@@ -21,6 +21,7 @@ import {
   Settings,
   SmartPhone,
   Store,
+  Swap,
   Treasury,
   Users,
 } from "../../components/appIcons";
@@ -37,6 +38,22 @@ const LogoContainer = styled.div`
   font-size: 24px;
   font-weight: 700;
   line-height: 34px;
+`;
+
+const Company = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 32px;
+  background: #eee;
+  padding: 8px;
+  border-radius: 8px;
+`;
+
+const CompanyLogo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 export type EmptyObject = Record<never, never>;
@@ -184,6 +201,14 @@ export default function AppLayout(): ReactElement {
           <Logo css="font-size: 32px" />
           ثمینا
         </LogoContainer>
+        <Company>
+          <CompanyLogo>
+            <img src="apple.png" alt="" width={32} height={32} /> شرکت اپل
+          </CompanyLogo>
+          <div>
+            <Swap />
+          </div>
+        </Company>
         <Menu
           mode="inline"
           defaultSelectedKeys={["1"]}
