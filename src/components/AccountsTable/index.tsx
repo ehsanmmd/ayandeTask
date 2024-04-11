@@ -6,14 +6,17 @@ import type { Filters } from "../../pages/Accounts/FilterModal";
 const columns: TableColumnsType<Account> = [
   {
     title: "عنوان حساب",
-    width: 70,
+    // width: 70,
     dataIndex: "accountTitle",
     key: "accountTitle",
-    // fixed: "right",
+    fixed: "left",
+    ellipsis: {
+      showTitle: false,
+    },
   },
   {
     title: "کد حساب",
-    width: 40,
+    width: 100,
     dataIndex: "accountCode",
     key: "accountCode",
     // fixed: "right",
@@ -22,37 +25,37 @@ const columns: TableColumnsType<Account> = [
     title: "شماره حساب",
     dataIndex: "accountNumber",
     key: "accountNumber",
-    width: 60,
+    width: 180,
   },
   {
     title: "شماره شبا",
     dataIndex: "ShebaNumber",
     key: "ShebaNumber",
-    width: 80,
+    width: 220,
   },
   {
     title: "شماره کارت",
     dataIndex: "cardNumber",
     key: "cardNumber",
-    width: 60,
+    width: 180,
   },
   {
     title: "وضعیت درگاه بانک",
     dataIndex: "bankPortStatus",
     key: "bankPortStatus",
-    width: 50,
+    // width: 50,
   },
   {
     title: "وضعیت کارتخوان",
     dataIndex: "posStatus",
     key: "posStatus",
-    width: 50,
+    // width: 50,
   },
   {
-    title: "عملیات",
+    title: "",
     dataIndex: "",
     key: "5",
-    width: 50,
+    // width: 50,
   },
 ];
 
@@ -78,7 +81,7 @@ export default function AccountsTable({
         rowSelection={{ type: "checkbox", ...rowSelection }}
         columns={columns}
         dataSource={filteredAccounts(filters, searchPhrase)}
-        scroll={{ x: 1600, y: 600 }}
+        scroll={{ x: 1200, y: 600 }}
       />
     </div>
   );

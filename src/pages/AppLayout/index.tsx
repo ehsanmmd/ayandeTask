@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import type { PropsWithChildren, ReactElement } from "react";
 import { DownOutlined, UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import {
@@ -39,20 +39,86 @@ const LogoContainer = styled.div`
   line-height: 34px;
 `;
 
+export type EmptyObject = Record<never, never>;
+
+const Icon = ({ children }: PropsWithChildren<EmptyObject>): ReactElement => {
+  return <div style={{ fontSize: "18px" }}>{children}</div>;
+};
+
 const siderMenu: MenuProps["items"] = [
-  { key: "dashboard", icon: <Dashboard />, label: "داشبورد" },
-  { key: "users", icon: <Users />, label: "طرف حساب" },
-  { key: "goods", icon: <Goods />, label: "کالا و خدمات" },
-  { key: "store", icon: <Store />, label: "انبار داری" },
-  { key: "sell", icon: <Sell />, label: "فروش" },
+  {
+    key: "dashboard",
+    icon: (
+      <Icon>
+        <Dashboard />
+      </Icon>
+    ),
+    label: "داشبورد",
+  },
+  {
+    key: "users",
+    icon: (
+      <Icon>
+        <Users />
+      </Icon>
+    ),
+    label: "طرف حساب",
+  },
+  {
+    key: "goods",
+    icon: (
+      <Icon>
+        <Goods />
+      </Icon>
+    ),
+    label: "کالا و خدمات",
+  },
+  {
+    key: "store",
+    icon: (
+      <Icon>
+        <Store />
+      </Icon>
+    ),
+    label: "انبار داری",
+  },
+  {
+    key: "sell",
+    icon: (
+      <Icon>
+        <Sell />
+      </Icon>
+    ),
+    label: "فروش",
+  },
   {
     key: "treasury",
-    icon: <Treasury />,
+    icon: (
+      <Icon>
+        <Treasury />
+      </Icon>
+    ),
     label: "خزانه داری",
     children: [{ key: "newBankAccount", label: "تعریف حساب بانکی" }],
   },
-  { key: "accounting", icon: <Accounting />, label: "حسابداری" },
-  { key: "settings", icon: <Settings />, label: "تنظیمات" },
+  {
+    key: "accounting",
+    icon: (
+      <Icon>
+        <Accounting />
+      </Icon>
+    ),
+    label: "حسابداری",
+  },
+  {
+    key: "settings",
+    icon: (
+      <Icon>
+        <Settings />
+      </Icon>
+    ),
+    label: "تنظیمات",
+  },
 ];
 
 const yearMenuItems: MenuProps["items"] = [
@@ -109,7 +175,11 @@ export default function AppLayout(): ReactElement {
           <Outlet />
         </div>
       </Layout>
-      <Sider width={279} dir="rtl">
+      <Sider
+        width={280}
+        dir="rtl"
+        css=".ant-menu-item , .ant-menu-submenu-title {gap: 8px}"
+      >
         <LogoContainer css="margin: 32px">
           <Logo css="font-size: 32px" />
           ثمینا
