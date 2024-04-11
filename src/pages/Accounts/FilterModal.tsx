@@ -53,6 +53,12 @@ export default function FilterModal({
     handleOk({ portFilter: portFilterState, posFilter: posFilterState });
   };
 
+  const clearFilters = () => {
+    setPortFilterState("همه");
+    setPosFilterState("همه");
+    handleOk({ portFilter: "همه", posFilter: "همه" });
+  };
+
   const filterItems: MenuProps["items"] = [
     {
       label: "همه",
@@ -126,7 +132,7 @@ export default function FilterModal({
             </Button>
           </StyledDropdown>
         </div>
-        <a>
+        <a onClick={clearFilters}>
           <div css="margin: 16px 0">حذف همه فیلتر ها</div>
         </a>
         <Divider />
